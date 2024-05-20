@@ -19,12 +19,12 @@ public class AnimationController : MonoBehaviour
     /// <summary>
     /// Plays random animation from the list of available animations.
     /// </summary>
-    /// <returns>Duration of a chosen animation</returns>
+    /// <returns>Duration of a chosen animation.</returns>
     public float PlayRandomAnimation(Action animationCallback = null)
     {
         this.animationCallback = animationCallback;
         int randomIndex = Random.Range(0, stateNames.Count);
-        animator.Play(stateNames[randomIndex]);
+        animator.CrossFadeInFixedTime(stateNames[randomIndex], 0.2f);
         return animator.GetCurrentAnimatorStateInfo(0).length;
     }
 

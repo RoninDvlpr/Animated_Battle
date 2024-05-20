@@ -3,6 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+using Random = UnityEngine.Random;
+
+
 public class Fighter : MonoBehaviour
 {
     //settings
@@ -14,7 +17,6 @@ public class Fighter : MonoBehaviour
     public bool IsBusy { get; private set; } = false;
     public event Action onBecomingFree;
 
-    Fighter opponentToAttack;
     Action onAttackFinished;
 
     Action nextDefenceAnimation;
@@ -32,12 +34,15 @@ public class Fighter : MonoBehaviour
         movementController.CloseInOnOpponent(opponent, AttackDistance, null);
     }
 
-    public void AttackOpponent(Fighter targetFighter, Action onExecutedCallback)
+    public void AttackOpponent(AttackContext attackContext)
     {
         IsBusy = true;
-        opponentToAttack = targetFighter;
-        onAttackFinished = onExecutedCallback;
-        movementController.CloseInOnOpponent(targetFighter, AttackDistance, PerformAttack);
+        onAttackFinished = attackContext.onAttackFinishedCallback;
+        movementController.CloseInOnOpponent(
+            attackContext.attackTarget,
+            AttackDistance,
+            () => PerformAttack(attackContext)
+        );
     }
 
     public void BlockNextAttack()
@@ -55,30 +60,45 @@ public class Fighter : MonoBehaviour
 
     #region Actions
 
-    void PerformAttack()
-    {
-        PlayAttackAnimation(OnOwnAttackLanded);
-        opponentToAttack.OnOpponentAttackStarted();
-    }
+        #region Attack
+        void PerformAttack(AttackContext attackContext)
+        {
+            PlayAttackAnimation( () => OnOwnAttackLanded(attackContext) );
+            attackContext.attackTarget.OnOpponentAttackStarted(); //inform opponent that my attack has started
+        }
 
-    void OnOwnAttackLanded()
-    {
-        opponentToAttack.OnHit();
-    }
+        /// <summary>
+        /// Called when attack hits an opponent.
+        /// Used in event-based hit detection to inform an opponent that my attack has landed.
+        /// </summary>
+        void OnOwnAttackLanded(AttackContext attackContext)
+        {
+            attackContext.attackTarget.OnHit(attackContext.attackType);
+        }
+        #endregion
 
-    public void OnOpponentAttackStarted()
-    {
-        if (nextDefenceAnimation != null)
-            nextDefenceAnimation.Invoke();
-    }
 
-    public void OnHit()
-    {
-        if (nextDefenceAnimation != null)
-            nextDefenceAnimation = null;
-        else
-            PlayStaggerAnimation();
-    }
+        #region Defense
+        /// <summary>
+        /// Used to react to an opponent attack.
+        /// </summary>
+        public void OnOpponentAttackStarted()
+        {
+            if (nextDefenceAnimation != null)
+                nextDefenceAnimation.Invoke();
+        }
+
+        /// <summary>
+        /// Used to react to being hit.
+        /// </summary>
+        public void OnHit(AttackTypes attackType)
+        {
+            if (nextDefenceAnimation != null)
+                nextDefenceAnimation = null;
+            else
+                PlayStaggerAnimation(attackType);
+        }
+        #endregion
 
     #endregion
 
@@ -114,12 +134,19 @@ public class Fighter : MonoBehaviour
         Invoke("MarkAsFree", animationDuration + 0.05f);
     }
 
-    void PlayStaggerAnimation()
+    void PlayStaggerAnimation(AttackTypes attackType)
     {
         Debug.Log(gameObject.name + " staggers");
         IsBusy = true;
-        //movementController.FallBack(1.5f, MarkAsFree);
-        float animationDuration = movementController.StaggerBackwards();
+
+        float fallBackDistance;
+        if (attackType == AttackTypes.Crit)
+            fallBackDistance = Random.Range(1f, 1.5f);
+        else
+            fallBackDistance = Random.Range(0f, 0.5f);
+
+        float animationDuration = movementController.StaggerBackwards(fallBackDistance);
+        Debug.Log($"{attackType} attack, fallback distance is {fallBackDistance}");
         Invoke("MarkAsFree", animationDuration + 0.05f);
     }
 

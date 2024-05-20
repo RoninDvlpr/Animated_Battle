@@ -1620,7 +1620,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8710209211926872854, guid: 7446fc63649c2ee48b182b2009c99608, type: 3}
       propertyPath: m_Name
-      value: SM_Chr_Captain_Male_01
+      value: Blue Fighter
       objectReference: {fileID: 0}
     - target: {fileID: 8710209211926872854, guid: 7446fc63649c2ee48b182b2009c99608, type: 3}
       propertyPath: m_IsActive
@@ -1861,7 +1861,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 33723962609650948, guid: 63a1191c760b32f48a6dda04f7b9e290, type: 3}
       propertyPath: m_Name
-      value: SM_Chr_Soldier_Female_01
+      value: Red Fighter
       objectReference: {fileID: 0}
     - target: {fileID: 33723962609650948, guid: 63a1191c760b32f48a6dda04f7b9e290, type: 3}
       propertyPath: m_IsActive

@@ -30,11 +30,12 @@ public class FightController : MonoBehaviour
         opponentFighter.CloseInOnOpponent(playerFighter);
     }
 
-    #region Demostration
+    #region Demonstration
 
     void AttacksDemo()
     {
-        playerFighter.AttackOpponent(opponentFighter, AttacksDemo);
+        AttackContext randomAttackContext = GenerateRandomAttackContext(opponentFighter, AttacksDemo);
+        playerFighter.AttackOpponent(randomAttackContext);
         //opponentFighter.AttackOpponent(playerFighter, null);
         //opponentFighter.BlockNextAttack();
         opponentFighter.DodgeNextAttack();
@@ -76,7 +77,8 @@ public class FightController : MonoBehaviour
         while (attacker.IsBusy || defender.IsBusy)
             yield return null;
 
-        attacker.AttackOpponent(defender, onRoundFinished);
+        AttackContext randomAttackContext = GenerateRandomAttackContext(defender, onRoundFinished);
+        attacker.AttackOpponent(randomAttackContext);
     }
 
     Fighter GetAnotherFighter(Fighter fighter)
@@ -100,5 +102,15 @@ public class FightController : MonoBehaviour
             return playerFighter;
         else
             return opponentFighter;
+    }
+
+    AttackContext GenerateRandomAttackContext(Fighter attackTarget, Action onAttackFinishedCallback)
+    {
+        AttackTypes randomAttackType = (AttackTypes) Random.Range(0, 2);
+
+        return new AttackContext(
+            attackTarget,
+            randomAttackType,
+            onAttackFinishedCallback);
     }
 }

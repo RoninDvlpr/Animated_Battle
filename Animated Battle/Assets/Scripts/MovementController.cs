@@ -6,8 +6,8 @@ using UnityEngine;
 public class MovementController : MonoBehaviour
 {
     [SerializeField] Animator animator;
-    float MovementSpeed { get; set; } = 2.5f;
-    float FallBackSpeed { get; set; } = 3.5f;
+    float RunSpeed { get; set; } = 4f;
+    float FallBackSpeed { get; set; } = 4f;
     Coroutine currentMovementCoroutine;
 
 
@@ -16,57 +16,70 @@ public class MovementController : MonoBehaviour
 
     public void CloseInOnOpponent(Fighter opponent, float distanceToStop, Action onOppenentReached)
     {
-        if (currentMovementCoroutine != null)
-            StopCoroutine(currentMovementCoroutine);
-        currentMovementCoroutine = StartCoroutine(CloseInCoroutine(opponent, distanceToStop, onOppenentReached));
+        StopCurrentMovement();
+        currentMovementCoroutine = StartCoroutine(CloseInCoroutine(opponent, distanceToStop, RunSpeed, onOppenentReached));
     }
 
     public void FallBack(float distanceToFallBack, Action onDistanceCovered)
     {
-        if (currentMovementCoroutine != null)
-            StopCoroutine(currentMovementCoroutine);
-        currentMovementCoroutine = StartCoroutine(FallBackCoroutine(distanceToFallBack, onDistanceCovered));
+        StopCurrentMovement();
+        currentMovementCoroutine = StartCoroutine(FallBackCoroutine(distanceToFallBack, FallBackSpeed, onDistanceCovered));
     }
 
-    public float StaggerBackwards()
+    public void StopCurrentMovement()
     {
-        animator.Play("Stagger Separate");
-        FallBack(1.5f, null);
+        if (currentMovementCoroutine != null)
+            StopCoroutine(currentMovementCoroutine);
+        animator.SetBool("isWalking", false);
+    }
+
+    public float StaggerBackwards(float fallBackDistance)
+    {
+        animator.CrossFadeInFixedTime("Stagger Backwards", 0.2f);
+        FallBack(fallBackDistance, null);
         return animator.GetCurrentAnimatorStateInfo(0).length;
     }
 
     #endregion
 
-    #region Movement Coroutines
+    #region Movement
 
-    IEnumerator CloseInCoroutine(Fighter opponent, float distanceToStop, Action onOppenentReached)
+    /// <summary>
+    /// Close in with the opponent until a specified distance to opponent is reached.
+    /// </summary>
+    /// <param name="distanceToReach">What distance from opponent shall we stop.</param>
+    /// <param name="onOpponentReached">On movement finished callback.</param>
+    IEnumerator CloseInCoroutine(Fighter opponent, float distanceToReach, float movementSpeed, Action onOpponentReached)
     {
-        while (CalculateDistance(opponent.transform.position, transform.position) > distanceToStop)
+        while (CalculateDistance(opponent.transform.position, transform.position) > distanceToReach)
         {
-            animator.SetBool("isWalking", true);
-            Vector3 direction = Vector3.forward;
+            animator.SetBool("isWalking", true);    //currently only forward motion animation is used
             transform.LookAt(opponent.transform);
-            transform.Translate(direction * MovementSpeed * Time.deltaTime);
+            Vector3 movementDirection = Vector3.forward;
+            transform.Translate(movementDirection * movementSpeed * Time.deltaTime);
             yield return null;
         }
 
-        yield return null;
         animator.SetBool("isWalking", false);
-        onOppenentReached?.Invoke();
+        onOpponentReached?.Invoke();
     }
 
-    IEnumerator FallBackCoroutine(float distanceToFallBack, Action onDistanceCovered)
+    /// <summary>
+    /// Fall back the specified distance. The fallback direction is straight back from the direction the character is facing.
+    /// </summary>
+    /// <param name="onDistanceCovered">On movement finished callback.</param>
+    IEnumerator FallBackCoroutine(float distanceToFallBack, float movementSpeed, Action onDistanceCovered)
     {
-        //animator.SetBool("isStaggering", true);
-        Vector3 startingPosition = transform.position;
-        while (CalculateDistance(startingPosition, transform.position) <= distanceToFallBack)
+        float traveledDistance = 0f;
+        while (traveledDistance < distanceToFallBack)
         {
-            transform.Translate(Vector3.back * FallBackSpeed * Time.deltaTime);
+            Vector3 translationVector = Vector3.back * movementSpeed * Time.deltaTime;
+            transform.Translate(translationVector);
+            traveledDistance += translationVector.magnitude;
             yield return null;
         }
 
-        yield return null;
-        //animator.SetBool("isStaggering", false);
+        //currently only forward motion animation is used
         onDistanceCovered?.Invoke();
     }
 
