@@ -6,9 +6,11 @@ using UnityEngine;
 public class MovementController : MonoBehaviour
 {
     [SerializeField] Animator animator;
+    [SerializeField] string staggerAnimationName = "Stagger Backwards";
     float RunSpeed { get; set; } = 4f;
     float FallBackSpeed { get; set; } = 4f;
     Coroutine currentMovementCoroutine;
+    Action onAnimationFinishedCallback;
 
 
 
@@ -33,11 +35,11 @@ public class MovementController : MonoBehaviour
         animator.SetBool("isWalking", false);
     }
 
-    public float StaggerBackwards(float fallBackDistance)
+    public void StaggerBackwards(float fallBackDistance, Action onAnimationFinishedCallback)
     {
-        animator.CrossFadeInFixedTime("Stagger Backwards", 0.2f);
+        this.onAnimationFinishedCallback = onAnimationFinishedCallback;
+        animator.CrossFadeInFixedTime(staggerAnimationName, 0.2f);
         FallBack(fallBackDistance, null);
-        return animator.GetCurrentAnimatorStateInfo(0).length;
     }
 
     #endregion
@@ -88,5 +90,12 @@ public class MovementController : MonoBehaviour
     float CalculateDistance(Vector3 poisition1, Vector3 position2)
     {
         return (poisition1 - position2).magnitude;
+    }
+
+    public void ReportAnimationFinish(AnimatorStateInfo stateInfo)
+    {
+        //Debug.Log($"Movement state finished: {name}");
+        StopCurrentMovement();
+        onAnimationFinishedCallback?.Invoke();
     }
 }

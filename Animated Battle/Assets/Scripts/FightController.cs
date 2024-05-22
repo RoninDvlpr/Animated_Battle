@@ -19,9 +19,9 @@ public class FightController : MonoBehaviour
     void Start()
     {
         CloseIn();
-        //AttacksDemo();
-        if (playRandomFight)
-            StartRandomFight();
+        AttacksDemo();
+        /*if (playRandomFight)
+            StartRandomFight();*/
     }
 
     void CloseIn()
@@ -34,11 +34,10 @@ public class FightController : MonoBehaviour
 
     void AttacksDemo()
     {
-        AttackContext randomAttackContext = GenerateRandomAttackContext(opponentFighter, AttacksDemo);
+        AttackContext randomAttackContext = GenerateRandomAttackContext(opponentFighter, null);
         playerFighter.AttackOpponent(randomAttackContext);
-        //opponentFighter.AttackOpponent(playerFighter, null);
         //opponentFighter.BlockNextAttack();
-        opponentFighter.DodgeNextAttack();
+        //opponentFighter.DodgeNextAttack();
     }
 
     #endregion

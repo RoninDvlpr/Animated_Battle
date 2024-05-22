@@ -171,6 +171,7 @@ MonoBehaviour:
   attackAnimController: {fileID: 150530728}
   blockAnimController: {fileID: 150530727}
   dodgeAnimController: {fileID: 150530726}
+  weapon: {fileID: 1657131783}
 --- !u!114 &150530726
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -180,10 +181,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 150530721}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e93eba26526cc5743bd6fe201ee4dbee, type: 3}
+  m_Script: {fileID: 11500000, guid: b61c0c49ffde15a498311e7c31984862, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stateNames:
+  dodgeStateNames:
   - Dodge1
 --- !u!114 &150530727
 MonoBehaviour:
@@ -194,10 +195,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 150530721}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e93eba26526cc5743bd6fe201ee4dbee, type: 3}
+  m_Script: {fileID: 11500000, guid: 27f6011a3a289e14c9e32ecf2d7d82f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stateNames:
+  blockStateNames:
   - Block1
 --- !u!114 &150530728
 MonoBehaviour:
@@ -208,13 +209,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 150530721}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e93eba26526cc5743bd6fe201ee4dbee, type: 3}
+  m_Script: {fileID: 11500000, guid: 8b01381f3e2a39941913493a04f7bd22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stateNames:
+  slashAttackStateNames:
   - Attack1
   - Attack2
   - Attack3
+  stabAttackStateNames: []
 --- !u!4 &207449909 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8334810020102068652, guid: 7446fc63649c2ee48b182b2009c99608, type: 3}
@@ -1844,13 +1846,36 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2836573981829754960, guid: 1086f45b34c976b47b500f8e7707adf3, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1372475578}
   m_SourcePrefab: {fileID: 100100000, guid: 1086f45b34c976b47b500f8e7707adf3, type: 3}
 --- !u!4 &1372475576 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3176825188543343338, guid: 1086f45b34c976b47b500f8e7707adf3, type: 3}
   m_PrefabInstance: {fileID: 1372475575}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1372475577 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2836573981829754960, guid: 1086f45b34c976b47b500f8e7707adf3, type: 3}
+  m_PrefabInstance: {fileID: 1372475575}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1372475578
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1372475577}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f28bc0a3e4c7374496e0378b5eab9a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canSlash: 1
+  canStab: 0
+  reach: 0.85
 --- !u!1001 &1457554387
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1941,9 +1966,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 33723962609650948, guid: 63a1191c760b32f48a6dda04f7b9e290, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2021382633}
-    - targetCorrespondingSourceObject: {fileID: 33723962609650948, guid: 63a1191c760b32f48a6dda04f7b9e290, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2021382636}
   m_SourcePrefab: {fileID: 100100000, guid: 63a1191c760b32f48a6dda04f7b9e290, type: 3}
 --- !u!1001 &1657131780
 PrefabInstance:
@@ -2000,13 +2022,36 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7021420225420658521, guid: 0b5c4d5e1b6faf745826bb69a4306f73, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1657131783}
   m_SourcePrefab: {fileID: 100100000, guid: 0b5c4d5e1b6faf745826bb69a4306f73, type: 3}
 --- !u!4 &1657131781 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7654651324834864611, guid: 0b5c4d5e1b6faf745826bb69a4306f73, type: 3}
   m_PrefabInstance: {fileID: 1657131780}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1657131782 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7021420225420658521, guid: 0b5c4d5e1b6faf745826bb69a4306f73, type: 3}
+  m_PrefabInstance: {fileID: 1657131780}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1657131783
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1657131782}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f28bc0a3e4c7374496e0378b5eab9a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canSlash: 1
+  canStab: 1
+  reach: 0.85
 --- !u!1 &1783848691
 GameObject:
   m_ObjectHideFlags: 0
@@ -2167,6 +2212,7 @@ MonoBehaviour:
   attackAnimController: {fileID: 2021382635}
   blockAnimController: {fileID: 2021382634}
   dodgeAnimController: {fileID: 2021382633}
+  weapon: {fileID: 1372475578}
 --- !u!114 &2021382633
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2176,10 +2222,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 2021382628}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e93eba26526cc5743bd6fe201ee4dbee, type: 3}
+  m_Script: {fileID: 11500000, guid: b61c0c49ffde15a498311e7c31984862, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stateNames:
+  dodgeStateNames:
   - Dodge1
 --- !u!114 &2021382634
 MonoBehaviour:
@@ -2190,10 +2236,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 2021382628}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e93eba26526cc5743bd6fe201ee4dbee, type: 3}
+  m_Script: {fileID: 11500000, guid: 27f6011a3a289e14c9e32ecf2d7d82f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stateNames:
+  blockStateNames:
   - Block1
 --- !u!114 &2021382635
 MonoBehaviour:
@@ -2204,32 +2250,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 2021382628}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e93eba26526cc5743bd6fe201ee4dbee, type: 3}
+  m_Script: {fileID: 11500000, guid: 8b01381f3e2a39941913493a04f7bd22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stateNames:
+  slashAttackStateNames:
   - Attack1
   - Attack2
   - Attack3
---- !u!320 &2021382636
-PlayableDirector:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2021382628}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_PlayableAsset: {fileID: 11400000, guid: 92c360b281903e94bb5bf6743b7859d5, type: 2}
-  m_InitialState: 1
-  m_WrapMode: 2
-  m_DirectorUpdateMode: 1
-  m_InitialTime: 0
-  m_SceneBindings:
-  - key: {fileID: 4906859213982768977, guid: 92c360b281903e94bb5bf6743b7859d5, type: 2}
-    value: {fileID: 2021382629}
-  m_ExposedReferences:
-    m_References: []
+  stabAttackStateNames: []
 --- !u!4 &2083033264 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7706826287655894062, guid: 7446fc63649c2ee48b182b2009c99608, type: 3}

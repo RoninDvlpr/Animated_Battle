@@ -10,7 +10,10 @@ public class Fighter : MonoBehaviour
 {
     //settings
     MovementController movementController;
-    [SerializeField] AnimationController attackAnimController, blockAnimController, dodgeAnimController;
+    [SerializeField] AttackAnimationController attackAnimController;
+    [SerializeField] BlockAnimationController blockAnimController;
+    [SerializeField] DodgeAnimationController dodgeAnimController;
+    [SerializeField] Weapon weapon;
     float AttackDistance { get; set; } = 1.25f;
 
     //state
@@ -36,6 +39,7 @@ public class Fighter : MonoBehaviour
 
     public void AttackOpponent(AttackContext attackContext)
     {
+        //Debug.Log($"{name} received command to attack");
         IsBusy = true;
         onAttackFinished = attackContext.onAttackFinishedCallback;
         movementController.CloseInOnOpponent(
@@ -63,7 +67,7 @@ public class Fighter : MonoBehaviour
         #region Attack
         void PerformAttack(AttackContext attackContext)
         {
-            PlayAttackAnimation( () => OnOwnAttackLanded(attackContext) );
+            PlayAttackAnimation(attackContext);
             attackContext.attackTarget.OnOpponentAttackStarted(); //inform opponent that my attack has started
         }
 
@@ -108,30 +112,31 @@ public class Fighter : MonoBehaviour
     /// <summary>
     /// Plays a random attack animation
     /// </summary>
-    /// <returns>Duration of a chosen animation</returns>
-    float PlayAttackAnimation(Action onHitCallback)
+    /// <returns>Name of a chosen animation</returns>
+    void PlayAttackAnimation(AttackContext attackContext)
     {
         Debug.Log(gameObject.name + " attacks");
-        float animationDuration = attackAnimController.PlayRandomAnimation(onHitCallback);
-        Invoke("OnAttackFinished", animationDuration + 0.05f);
-        return animationDuration;
+        attackAnimController.PlayRandomAttackAnimation(
+            attackContext,
+            weapon,
+            () => OnOwnAttackLanded(attackContext),
+            OnAttackFinished
+        );
     }
 
     void PlayBlockAnimation()
     {
         Debug.Log(gameObject.name + " blocks");
         IsBusy = true;
-        float animationDuration = blockAnimController.PlayRandomAnimation();
-        Invoke("MarkAsFree", animationDuration + 0.05f);
+        blockAnimController.PlayRandomBlockAnimation(MarkAsFree);
     }
 
     void PlayDodgeAnimation()
     {
         Debug.Log(gameObject.name + " dodges");
         IsBusy = true;
-        //movementController.FallBack(1.5f, null);
-        float animationDuration = dodgeAnimController.PlayRandomAnimation();
-        Invoke("MarkAsFree", animationDuration + 0.05f);
+        //to increase dodge travell distance we can use: movementController.FallBack(1.5f, null);
+        dodgeAnimController.PlayRandomDodgeAnimation(MarkAsFree);
     }
 
     void PlayStaggerAnimation(AttackTypes attackType)
@@ -144,10 +149,9 @@ public class Fighter : MonoBehaviour
             fallBackDistance = Random.Range(1f, 1.5f);
         else
             fallBackDistance = Random.Range(0f, 0.5f);
-
-        float animationDuration = movementController.StaggerBackwards(fallBackDistance);
         Debug.Log($"{attackType} attack, fallback distance is {fallBackDistance}");
-        Invoke("MarkAsFree", animationDuration + 0.05f);
+
+        movementController.StaggerBackwards(fallBackDistance, MarkAsFree);
     }
 
     #endregion
