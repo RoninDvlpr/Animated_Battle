@@ -3,18 +3,27 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [DisallowMultipleComponent]
-public class BlockAnimationController : AnimationController
+public class BlockAnimationController : DefenseAnimationController
 {
     [SerializeField] List<string> blockStateNames;
 
+    
+    protected override void OnOpponentAttackStart()
+    {
+        PlayRandomBlockAnimation();
+    }
 
     /// <summary>
     /// Plays random dodge animation from the list of available animations.
     /// </summary>
-    /// <returns>Name of a chosen animation.</returns>
-    public void PlayRandomBlockAnimation(Action onAnimationFinishedCallback)
+    public void PlayRandomBlockAnimation()
     {
-        this.onAnimationFinishedCallback = onAnimationFinishedCallback;
+        Debug.Log(gameObject.name + " blocks");
         PlayRandomAnimation(blockStateNames);
+    }
+
+    public override void ReactToBeingHit()
+    {
+        animator.SetTrigger("getHit");
     }
 }

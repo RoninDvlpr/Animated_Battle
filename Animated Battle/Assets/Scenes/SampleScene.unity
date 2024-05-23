@@ -156,7 +156,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 150530722}
-  staggerAnimationName: Stagger Backwards
 --- !u!114 &150530725
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -169,9 +168,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e26ceb73c80c0b46a9f59e8f61c7d67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  movementController: {fileID: 150530724}
   attackAnimController: {fileID: 150530728}
   blockAnimController: {fileID: 150530730}
   dodgeAnimController: {fileID: 150530731}
+  damageAnimController: {fileID: 150530732}
   weapon: {fileID: 1657131783}
 --- !u!114 &150530728
 MonoBehaviour:
@@ -222,7 +223,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 150530722}
   blockStateNames:
-  - Block1
+  - Block 1 Idle
 --- !u!114 &150530731
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -238,6 +239,20 @@ MonoBehaviour:
   animator: {fileID: 150530722}
   dodgeStateNames:
   - Dodge1
+--- !u!114 &150530732
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 150530721}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 347a814b792904342b4159bf3a6726a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 150530722}
+  staggerAnimationName: Stagger Backwards
 --- !u!4 &207449909 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8334810020102068652, guid: 7446fc63649c2ee48b182b2009c99608, type: 3}
@@ -1713,6 +1728,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8710209211926872854, guid: 7446fc63649c2ee48b182b2009c99608, type: 3}
       insertIndex: -1
       addedObject: {fileID: 150530730}
+    - targetCorrespondingSourceObject: {fileID: 8710209211926872854, guid: 7446fc63649c2ee48b182b2009c99608, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 150530732}
   m_SourcePrefab: {fileID: 100100000, guid: 7446fc63649c2ee48b182b2009c99608, type: 3}
 --- !u!1 &963194225
 GameObject:
@@ -2035,6 +2053,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 33723962609650948, guid: 63a1191c760b32f48a6dda04f7b9e290, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2021382637}
+    - targetCorrespondingSourceObject: {fileID: 33723962609650948, guid: 63a1191c760b32f48a6dda04f7b9e290, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2021382639}
   m_SourcePrefab: {fileID: 100100000, guid: 63a1191c760b32f48a6dda04f7b9e290, type: 3}
 --- !u!4 &1523542141 stripped
 Transform:
@@ -2302,7 +2323,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 2021382629}
-  staggerAnimationName: Stagger Backwards
 --- !u!114 &2021382632
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2315,9 +2335,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e26ceb73c80c0b46a9f59e8f61c7d67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  movementController: {fileID: 2021382631}
   attackAnimController: {fileID: 2021382635}
   blockAnimController: {fileID: 2021382637}
   dodgeAnimController: {fileID: 2021382638}
+  damageAnimController: {fileID: 2021382639}
   weapon: {fileID: 1372475578}
 --- !u!114 &2021382635
 MonoBehaviour:
@@ -2368,7 +2390,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 2021382629}
   blockStateNames:
-  - Block1
+  - Block 1 Idle
 --- !u!114 &2021382638
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2384,6 +2406,20 @@ MonoBehaviour:
   animator: {fileID: 2021382629}
   dodgeStateNames:
   - Dodge1
+--- !u!114 &2021382639
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2021382628}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 347a814b792904342b4159bf3a6726a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 2021382629}
+  staggerAnimationName: Stagger Backwards
 --- !u!4 &2083033264 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7706826287655894062, guid: 7446fc63649c2ee48b182b2009c99608, type: 3}

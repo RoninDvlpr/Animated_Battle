@@ -13,7 +13,6 @@ public class AttackAnimationController : AnimationController
     /// <summary>
     /// Plays random attack animation from the list of available animations.
     /// </summary>
-    /// <returns>Name of a chosen animation.</returns>
     public void PlayRandomAttackAnimation(AttackContext context, Weapon characterWeapon, Action onAttackLandedCallback, Action onAnimationFinishedCallback)
     {
         this.onAttackLandedCallback = onAttackLandedCallback;
@@ -25,6 +24,7 @@ public class AttackAnimationController : AnimationController
         if (characterWeapon.CanStab)
             validStates.AddRange(stabAttackStateNames);
 
+        Debug.Log(gameObject.name + " attacks");
         if (validStates.Count == 0)
             if (!characterWeapon.CanSlash && !characterWeapon.CanStab)
             {

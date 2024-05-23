@@ -19,9 +19,9 @@ public class FightController : MonoBehaviour
     void Start()
     {
         CloseIn();
-        AttacksDemo();
-        /*if (playRandomFight)
-            StartRandomFight();*/
+        //AttacksDemo();
+        if (playRandomFight)
+            StartRandomFight();
     }
 
     void CloseIn()
@@ -34,10 +34,13 @@ public class FightController : MonoBehaviour
 
     void AttacksDemo()
     {
+        //response to an attack should be set before calling the attack method -
+        //otherwise defender will react to the attack start as if he has no defense task
+        //opponentFighter.BlockNextAttack();
+        opponentFighter.DodgeNextAttack();
+
         AttackContext randomAttackContext = GenerateRandomAttackContext(opponentFighter, AttacksDemo);
         playerFighter.AttackOpponent(randomAttackContext);
-        //opponentFighter.BlockNextAttack();
-        //opponentFighter.DodgeNextAttack();
     }
 
     #endregion

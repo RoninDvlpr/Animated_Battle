@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class AnimationController : MonoBehaviour
+public abstract class AnimationController : MonoBehaviour
 {
-    [SerializeField] Animator animator;
+    [SerializeField] protected Animator animator;
     protected Action onAnimationFinishedCallback;
 
 
@@ -21,7 +21,7 @@ public class AnimationController : MonoBehaviour
         return animationStateNames[randomIndex];
     }
 
-    public void ReportAnimationFinish(AnimatorStateInfo stateInfo)
+    public virtual void ReportAnimationFinish(AnimatorStateInfo stateInfo)
     {
         //Debug.Log($"State finished: {name}");
         onAnimationFinishedCallback?.Invoke();
