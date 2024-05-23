@@ -238,7 +238,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 150530722}
   dodgeStateNames:
-  - Dodge1
+  - Dodge 1
 --- !u!114 &150530732
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2405,7 +2405,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 2021382629}
   dodgeStateNames:
-  - Dodge1
+  - Dodge 1
 --- !u!114 &2021382639
 MonoBehaviour:
   m_ObjectHideFlags: 0

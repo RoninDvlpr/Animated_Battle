@@ -19,9 +19,9 @@ public class FightController : MonoBehaviour
     void Start()
     {
         CloseIn();
-        //AttacksDemo();
-        if (playRandomFight)
-            StartRandomFight();
+        AttacksDemo();
+        /*if (playRandomFight)
+            StartRandomFight();*/
     }
 
     void CloseIn()
