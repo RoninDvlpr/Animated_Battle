@@ -6,14 +6,9 @@ using Random = UnityEngine.Random;
 
 public class AnimationController : MonoBehaviour
 {
-    Animator animator;
+    [SerializeField] Animator animator;
     protected Action onAnimationFinishedCallback;
 
-
-    private void Awake()
-    {
-        animator = GetComponent<Animator>();
-    }
 
     /// <summary>
     /// Plays random animation from the list of available animations.

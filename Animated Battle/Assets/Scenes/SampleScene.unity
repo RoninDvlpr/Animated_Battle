@@ -156,6 +156,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 150530722}
+  staggerAnimationName: Stagger Backwards
 --- !u!114 &150530725
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -169,37 +170,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackAnimController: {fileID: 150530728}
-  blockAnimController: {fileID: 150530727}
-  dodgeAnimController: {fileID: 150530726}
+  blockAnimController: {fileID: 150530730}
+  dodgeAnimController: {fileID: 150530731}
   weapon: {fileID: 1657131783}
---- !u!114 &150530726
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 150530721}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b61c0c49ffde15a498311e7c31984862, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dodgeStateNames:
-  - Dodge1
---- !u!114 &150530727
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 150530721}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 27f6011a3a289e14c9e32ecf2d7d82f6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  blockStateNames:
-  - Block1
 --- !u!114 &150530728
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -212,15 +185,99 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b01381f3e2a39941913493a04f7bd22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 150530722}
   slashAttackStateNames:
-  - Attack1
-  - Attack2
-  - Attack3
-  stabAttackStateNames: []
+  - Slash Attack 1
+  - Slash Attack 2
+  - Slash Attack 3
+  stabAttackStateNames:
+  - Stab Attack 1
+--- !u!114 &150530729
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 150530721}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 740d107c7f546094d836a09c421ccddf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectToLookAt: {fileID: 1644767594}
+  headWeight: 1
+  bodyWeight: 0
+  animator: {fileID: 150530722}
+--- !u!114 &150530730
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 150530721}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27f6011a3a289e14c9e32ecf2d7d82f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 150530722}
+  blockStateNames:
+  - Block1
+--- !u!114 &150530731
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 150530721}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b61c0c49ffde15a498311e7c31984862, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 150530722}
+  dodgeStateNames:
+  - Dodge1
 --- !u!4 &207449909 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8334810020102068652, guid: 7446fc63649c2ee48b182b2009c99608, type: 3}
   m_PrefabInstance: {fileID: 1967155600}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &318705631
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 318705632}
+  m_Layer: 0
+  m_Name: Object_To_Look_At
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &318705632
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 318705631}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.025, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 319843180}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &319843180 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7865150924205942517, guid: 7446fc63649c2ee48b182b2009c99608, type: 3}
+  m_PrefabInstance: {fileID: 915379282}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &372468006 stripped
 Transform:
@@ -1631,6 +1688,9 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 7865150924205942517, guid: 7446fc63649c2ee48b182b2009c99608, type: 3}
+      insertIndex: 0
+      addedObject: {fileID: 318705632}
     - targetCorrespondingSourceObject: {fileID: 7706826287655894062, guid: 7446fc63649c2ee48b182b2009c99608, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1657131781}
@@ -1646,10 +1706,13 @@ PrefabInstance:
       addedObject: {fileID: 150530728}
     - targetCorrespondingSourceObject: {fileID: 8710209211926872854, guid: 7446fc63649c2ee48b182b2009c99608, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 150530727}
+      addedObject: {fileID: 150530729}
     - targetCorrespondingSourceObject: {fileID: 8710209211926872854, guid: 7446fc63649c2ee48b182b2009c99608, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 150530726}
+      addedObject: {fileID: 150530731}
+    - targetCorrespondingSourceObject: {fileID: 8710209211926872854, guid: 7446fc63649c2ee48b182b2009c99608, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 150530730}
   m_SourcePrefab: {fileID: 100100000, guid: 7446fc63649c2ee48b182b2009c99608, type: 3}
 --- !u!1 &963194225
 GameObject:
@@ -1947,6 +2010,9 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 1563188853233789159, guid: 63a1191c760b32f48a6dda04f7b9e290, type: 3}
+      insertIndex: 0
+      addedObject: {fileID: 1644767594}
     - targetCorrespondingSourceObject: {fileID: 1324915152841601596, guid: 63a1191c760b32f48a6dda04f7b9e290, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1372475576}
@@ -1962,11 +2028,50 @@ PrefabInstance:
       addedObject: {fileID: 2021382635}
     - targetCorrespondingSourceObject: {fileID: 33723962609650948, guid: 63a1191c760b32f48a6dda04f7b9e290, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 2021382634}
+      addedObject: {fileID: 2021382636}
     - targetCorrespondingSourceObject: {fileID: 33723962609650948, guid: 63a1191c760b32f48a6dda04f7b9e290, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 2021382633}
+      addedObject: {fileID: 2021382638}
+    - targetCorrespondingSourceObject: {fileID: 33723962609650948, guid: 63a1191c760b32f48a6dda04f7b9e290, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2021382637}
   m_SourcePrefab: {fileID: 100100000, guid: 63a1191c760b32f48a6dda04f7b9e290, type: 3}
+--- !u!4 &1523542141 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1563188853233789159, guid: 63a1191c760b32f48a6dda04f7b9e290, type: 3}
+  m_PrefabInstance: {fileID: 1457554387}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1644767593
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1644767594}
+  m_Layer: 0
+  m_Name: Object_To_Look_At
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1644767594
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1644767593}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.025, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1523542141}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1657131780
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2197,6 +2302,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 2021382629}
+  staggerAnimationName: Stagger Backwards
 --- !u!114 &2021382632
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2210,37 +2316,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackAnimController: {fileID: 2021382635}
-  blockAnimController: {fileID: 2021382634}
-  dodgeAnimController: {fileID: 2021382633}
+  blockAnimController: {fileID: 2021382637}
+  dodgeAnimController: {fileID: 2021382638}
   weapon: {fileID: 1372475578}
---- !u!114 &2021382633
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2021382628}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b61c0c49ffde15a498311e7c31984862, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dodgeStateNames:
-  - Dodge1
---- !u!114 &2021382634
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2021382628}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 27f6011a3a289e14c9e32ecf2d7d82f6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  blockStateNames:
-  - Block1
 --- !u!114 &2021382635
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2253,11 +2331,59 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b01381f3e2a39941913493a04f7bd22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 2021382629}
   slashAttackStateNames:
-  - Attack1
-  - Attack2
-  - Attack3
-  stabAttackStateNames: []
+  - Slash Attack 1
+  - Slash Attack 2
+  - Slash Attack 3
+  stabAttackStateNames:
+  - Stab Attack 1
+--- !u!114 &2021382636
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2021382628}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 740d107c7f546094d836a09c421ccddf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectToLookAt: {fileID: 318705632}
+  headWeight: 1
+  bodyWeight: 0
+  animator: {fileID: 2021382629}
+--- !u!114 &2021382637
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2021382628}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27f6011a3a289e14c9e32ecf2d7d82f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 2021382629}
+  blockStateNames:
+  - Block1
+--- !u!114 &2021382638
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2021382628}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b61c0c49ffde15a498311e7c31984862, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 2021382629}
+  dodgeStateNames:
+  - Dodge1
 --- !u!4 &2083033264 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7706826287655894062, guid: 7446fc63649c2ee48b182b2009c99608, type: 3}

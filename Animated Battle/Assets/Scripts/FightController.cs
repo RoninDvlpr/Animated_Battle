@@ -34,7 +34,7 @@ public class FightController : MonoBehaviour
 
     void AttacksDemo()
     {
-        AttackContext randomAttackContext = GenerateRandomAttackContext(opponentFighter, null);
+        AttackContext randomAttackContext = GenerateRandomAttackContext(opponentFighter, AttacksDemo);
         playerFighter.AttackOpponent(randomAttackContext);
         //opponentFighter.BlockNextAttack();
         //opponentFighter.DodgeNextAttack();

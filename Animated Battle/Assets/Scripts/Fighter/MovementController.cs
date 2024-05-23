@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[DisallowMultipleComponent]
 public class MovementController : MonoBehaviour
 {
     [SerializeField] Animator animator;
