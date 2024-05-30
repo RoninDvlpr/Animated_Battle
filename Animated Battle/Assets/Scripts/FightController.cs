@@ -37,7 +37,7 @@ public class FightController : MonoBehaviour
         //response to an attack should be set before calling the attack method -
         //otherwise defender will react to the attack start as if he has no defense task
         //opponentFighter.BlockNextAttack();
-        opponentFighter.DodgeNextAttack();
+        //opponentFighter.DodgeNextAttack();
 
         AttackContext randomAttackContext = GenerateRandomAttackContext(opponentFighter, AttacksDemo);
         playerFighter.AttackOpponent(randomAttackContext);

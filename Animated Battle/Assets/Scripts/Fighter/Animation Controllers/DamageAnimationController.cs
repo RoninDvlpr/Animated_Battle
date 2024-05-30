@@ -29,9 +29,9 @@ public class DamageAnimationController : DefenseAnimationController
 
         float fallBackDistance;
         if (attackType == AttackTypes.Crit)
-            fallBackDistance = Random.Range(0.75f, 1.25f);
+            fallBackDistance = Random.Range(0.75f, 0.9f);
         else
-            fallBackDistance = Random.Range(0f, 0.5f);
+            fallBackDistance = Random.Range(0.35f, 0.75f);
         Debug.Log($"{attackType} attack, fallback distance is {fallBackDistance}");
 
         animator.CrossFadeInFixedTime(staggerAnimationName, 0.2f);
