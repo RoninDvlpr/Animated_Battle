@@ -23,7 +23,12 @@ public abstract class AnimationController : MonoBehaviour
 
     public virtual void ReportAnimationFinish(AnimatorStateInfo stateInfo)
     {
-        //Debug.Log($"State finished: {name}");
+        OnAnimiationFinish();
         onAnimationFinishedCallback?.Invoke();
+    }
+
+    protected virtual void OnAnimiationFinish()
+    {
+        //Debug.Log($"State finished: {name}");
     }
 }

@@ -6,6 +6,7 @@ using UnityEngine;
 [DisallowMultipleComponent]
 public class AttackAnimationController : AnimationController
 {
+    [SerializeField] LookAtController lookAtController;
     [SerializeField] List<string> slashAttackStateNames, stabAttackStateNames;
     Action onAttackLandedCallback;
 
@@ -15,6 +16,8 @@ public class AttackAnimationController : AnimationController
     /// </summary>
     public void PlayRandomAttackAnimation(AttackContext context, Weapon characterWeapon, Action onAttackLandedCallback, Action onAnimationFinishedCallback)
     {
+        OnAttackStart();
+
         this.onAttackLandedCallback = onAttackLandedCallback;
         this.onAnimationFinishedCallback = onAnimationFinishedCallback;
 
@@ -37,8 +40,14 @@ public class AttackAnimationController : AnimationController
         PlayRandomAnimation(validStates);
     }
 
+    void OnAttackStart()
+    {
+        lookAtController?.SetWeights(0.1f, 0f);
+    }
+
     public void OnAttackLandedCallback()
     {
+        lookAtController?.ResetWeights();
         onAttackLandedCallback?.Invoke();
     }
 }

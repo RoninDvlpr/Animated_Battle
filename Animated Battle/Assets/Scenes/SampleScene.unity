@@ -187,6 +187,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 150530722}
+  lookAtController: {fileID: 150530729}
   slashAttackStateNames:
   - Slash Attack 1
   - Slash Attack 2
@@ -205,10 +206,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 740d107c7f546094d836a09c421ccddf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectToLookAt: {fileID: 1644767594}
-  headWeight: 1
-  bodyWeight: 0
   animator: {fileID: 150530722}
+  objectToLookAt: {fileID: 1644767594}
+  defaultHeadWeight: 1
+  defaultBodyWeight: 0
 --- !u!114 &150530730
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2354,6 +2355,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 2021382629}
+  lookAtController: {fileID: 2021382636}
   slashAttackStateNames:
   - Slash Attack 1
   - Slash Attack 2
@@ -2372,10 +2374,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 740d107c7f546094d836a09c421ccddf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectToLookAt: {fileID: 318705632}
-  headWeight: 1
-  bodyWeight: 0
   animator: {fileID: 2021382629}
+  objectToLookAt: {fileID: 318705632}
+  defaultHeadWeight: 1
+  defaultBodyWeight: 0
 --- !u!114 &2021382637
 MonoBehaviour:
   m_ObjectHideFlags: 0
