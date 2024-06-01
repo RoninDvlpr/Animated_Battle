@@ -7,6 +7,7 @@ using UnityEngine;
 public class AttackAnimationController : AnimationController
 {
     [SerializeField] LookAtController lookAtController;
+    [SerializeField] string idleStateName = "Idle";
     [SerializeField] List<string> slashAttackStateNames, stabAttackStateNames;
     Action onAttackLandedCallback;
 
@@ -40,6 +41,11 @@ public class AttackAnimationController : AnimationController
         PlayRandomAnimation(validStates);
     }
 
+    void InterruptAttack()
+    {
+        animator.CrossFadeInFixedTime(idleStateName, 0.4f);
+    }
+
     void OnAttackStart()
     {
         lookAtController?.SetWeights(0.1f, 0f);
@@ -49,5 +55,6 @@ public class AttackAnimationController : AnimationController
     {
         lookAtController?.ResetWeights();
         onAttackLandedCallback?.Invoke();
+        InterruptAttack();
     }
 }
