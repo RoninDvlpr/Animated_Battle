@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using UnityEngine;
 
 [DisallowMultipleComponent]
@@ -10,6 +11,13 @@ public class MovementController : MonoBehaviour
     float RunSpeed { get; set; } = 4f;
     float FallBackSpeed { get; set; } = 4f;
     Coroutine currentMovementCoroutine;
+    bool TransitionInProgres
+    {
+        get
+        {
+            return animator.GetAnimatorTransitionInfo(0).normalizedTime != 0f;
+        }
+    }
 
 
 
@@ -19,6 +27,12 @@ public class MovementController : MonoBehaviour
     {
         StopCurrentMovement();
         currentMovementCoroutine = StartCoroutine(CloseInCoroutine(opponent, distanceToStop, RunSpeed, onOppenentReached));
+    }
+
+    public void MoveForward(float distanceToTravel, Action onDistanceTraveled)
+    {
+        StopCurrentMovement();
+        currentMovementCoroutine = StartCoroutine(ForwardMovementCoroutine(distanceToTravel, RunSpeed, onDistanceTraveled));
     }
 
     public void FallBack(float distanceToFallBack, Action onDistanceCovered)
@@ -38,6 +52,49 @@ public class MovementController : MonoBehaviour
 
     #region Movement
 
+    void MoveToOpponent(float movementSpeed, Fighter opponent)
+    {
+        transform.LookAt(opponent.transform);
+        MoveForward(movementSpeed);
+    }
+
+    void MoveForward(float movementSpeed)
+    {
+        Vector3 movementDirection = Vector3.forward;
+        transform.Translate(movementDirection * movementSpeed * Time.deltaTime);
+    }
+
+    /// <summary>
+    /// Move forward until the specified distance from a starting position is traveled.
+    /// </summary>
+    /// <param name="onDistanceTraveled">On movement finished callback.</param>
+    IEnumerator ForwardMovementCoroutine(float distanceToTravel, float movementSpeed, Action onDistanceTraveled)
+    {
+        animator.SetBool("isWalking", true);    //currently only forward motion animation is used
+
+        Debug.Log(animator.GetAnimatorTransitionInfo(0).duration);
+        yield return null;
+        Debug.Log(animator.GetAnimatorTransitionInfo(0).duration);
+        yield return null;  //it takes a few frames for a tranistion to start and it's normalized time to become greater than 0
+        while (TransitionInProgres)
+        {
+            Debug.Log("Awaiting transition");
+            Debug.Log(animator.GetAnimatorTransitionInfo(0).duration);
+            yield return null;
+        }
+
+
+        Vector3 startingPosition = transform.position;
+        while (CalculateDistance(startingPosition, transform.position) < distanceToTravel)
+        {
+            MoveForward(movementSpeed);
+            yield return null;
+        }
+
+        animator.SetBool("isWalking", false);
+        onDistanceTraveled?.Invoke();
+    }
+
     /// <summary>
     /// Close in with the opponent until a specified distance to opponent is reached.
     /// </summary>
@@ -45,16 +102,31 @@ public class MovementController : MonoBehaviour
     /// <param name="onOpponentReached">On movement finished callback.</param>
     IEnumerator CloseInCoroutine(Fighter opponent, float distanceToReach, float movementSpeed, Action onOpponentReached)
     {
-        while (CalculateDistance(opponent.transform.position, transform.position) > distanceToReach)
+        if (CalculateDistance(opponent.transform.position, transform.position) > distanceToReach)
         {
             animator.SetBool("isWalking", true);    //currently only forward motion animation is used
-            transform.LookAt(opponent.transform);
-            Vector3 movementDirection = Vector3.forward;
-            transform.Translate(movementDirection * movementSpeed * Time.deltaTime);
+            
+            Debug.Log(animator.GetAnimatorTransitionInfo(0).duration);
             yield return null;
+            Debug.Log(animator.GetAnimatorTransitionInfo(0).duration);
+            yield return null;  //it takes a few frames for a tranistion to start and it's normalized time to become greater than 0
+            while (TransitionInProgres)
+            {
+                Debug.Log("Awaiting transition");
+                Debug.Log(animator.GetAnimatorTransitionInfo(0).duration);
+                yield return null;
+            }
+
+
+            while (CalculateDistance(opponent.transform.position, transform.position) > distanceToReach)
+            {
+                MoveToOpponent(movementSpeed, opponent);
+                yield return null;
+            }
+
+            animator.SetBool("isWalking", false);
         }
 
-        animator.SetBool("isWalking", false);
         onOpponentReached?.Invoke();
     }
 

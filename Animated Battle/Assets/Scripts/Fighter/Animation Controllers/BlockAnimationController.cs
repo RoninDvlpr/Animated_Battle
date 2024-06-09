@@ -18,7 +18,7 @@ public class BlockAnimationController : DefenseAnimationController
     /// </summary>
     public void PlayRandomBlockAnimation()
     {
-        Debug.Log(gameObject.name + " blocks");
+        //Debug.Log(gameObject.name + " blocks");
         PlayRandomAnimation(blockStateNames);
     }
 

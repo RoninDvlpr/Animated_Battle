@@ -18,7 +18,7 @@ public class DodgeAnimationController : DefenseAnimationController
     /// </summary>
     void PlayRandomDodgeAnimation()
     {
-        Debug.Log(gameObject.name + " dodges");
+        //Debug.Log(gameObject.name + " dodges");
         PlayRandomAnimation(dodgeStateNames);
         //to increase dodge travell distance we can use: movementController.FallBack(1.5f, null);
     }

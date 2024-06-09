@@ -18,6 +18,7 @@ public class FightController : MonoBehaviour
 
     void Start()
     {
+        //playerFighter.MoveForward(100000f, null); //walk test
         CloseIn();
         //AttacksDemo();
         if (playRandomFight)

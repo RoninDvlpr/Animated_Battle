@@ -28,7 +28,7 @@ public class AttackAnimationController : AnimationController
         if (characterWeapon.CanStab)
             validStates.AddRange(stabAttackStateNames);
 
-        Debug.Log(gameObject.name + " attacks");
+        //Debug.Log(gameObject.name + " attacks");
         if (validStates.Count == 0)
             if (!characterWeapon.CanSlash && !characterWeapon.CanStab)
             {

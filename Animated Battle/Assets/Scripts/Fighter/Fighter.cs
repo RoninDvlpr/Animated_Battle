@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using UnityEngine;
 
 using Random = UnityEngine.Random;
@@ -32,6 +33,11 @@ public class Fighter : MonoBehaviour
     }
 
     #region Controlls
+
+    public void MoveForward(float distanceToTravel, Action onDistancetraveled = null)
+    {
+        movementController.MoveForward(distanceToTravel, onDistancetraveled);
+    }
 
     public void CloseInOnOpponent(Fighter opponent)
     {
