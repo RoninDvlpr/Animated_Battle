@@ -18,11 +18,11 @@ public class FightController : MonoBehaviour
 
     void Start()
     {
-        //playerFighter.MoveForward(100000f, null); //walk test
-        CloseIn();
+        playerFighter.MoveForward(100000f, null); //walk test
+        //CloseIn();
         //AttacksDemo();
-        if (playRandomFight)
-            StartRandomFight();
+        /*if (playRandomFight)
+            StartRandomFight();*/
     }
 
     void CloseIn()

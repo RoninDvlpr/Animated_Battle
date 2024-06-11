@@ -11,13 +11,6 @@ public class MovementController : MonoBehaviour
     float RunSpeed { get; set; } = 4f;
     float FallBackSpeed { get; set; } = 4f;
     Coroutine currentMovementCoroutine;
-    bool TransitionInProgres
-    {
-        get
-        {
-            return animator.GetAnimatorTransitionInfo(0).normalizedTime != 0f;
-        }
-    }
 
 
 
@@ -72,16 +65,18 @@ public class MovementController : MonoBehaviour
     {
         animator.SetBool("isWalking", true);    //currently only forward motion animation is used
 
-        Debug.Log(animator.GetAnimatorTransitionInfo(0).duration);
+        yield return null; //it takes 1 frame for a tranistion to start
+
+        Debug.Log(animator.GetAnimatorTransitionInfo(0).normalizedTime);
         yield return null;
-        Debug.Log(animator.GetAnimatorTransitionInfo(0).duration);
-        yield return null;  //it takes a few frames for a tranistion to start and it's normalized time to become greater than 0
-        while (TransitionInProgres)
+        while (animator.IsInTransition(0))
         {
             Debug.Log("Awaiting transition");
-            Debug.Log(animator.GetAnimatorTransitionInfo(0).duration);
+            Debug.Log(animator.GetAnimatorTransitionInfo(0).normalizedTime);
             yield return null;
         }
+        Debug.Log("Finished awaiting transition");
+        Debug.Log(animator.GetAnimatorTransitionInfo(0).normalizedTime);
 
 
         Vector3 startingPosition = transform.position;
@@ -110,7 +105,7 @@ public class MovementController : MonoBehaviour
             yield return null;
             Debug.Log(animator.GetAnimatorTransitionInfo(0).duration);
             yield return null;  //it takes a few frames for a tranistion to start and it's normalized time to become greater than 0
-            while (TransitionInProgres)
+            while (animator.IsInTransition(0))
             {
                 Debug.Log("Awaiting transition");
                 Debug.Log(animator.GetAnimatorTransitionInfo(0).duration);

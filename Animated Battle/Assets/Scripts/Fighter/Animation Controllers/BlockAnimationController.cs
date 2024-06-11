@@ -5,6 +5,7 @@ using UnityEngine;
 [DisallowMultipleComponent]
 public class BlockAnimationController : DefenseAnimationController
 {
+    [SerializeField] GameObject blockParticles;
     [SerializeField] List<string> blockStateNames;
 
     
@@ -25,5 +26,6 @@ public class BlockAnimationController : DefenseAnimationController
     public override void ReactToBeingHit()
     {
         animator.SetTrigger("getHit");
+        blockParticles?.SetActive(true);
     }
 }

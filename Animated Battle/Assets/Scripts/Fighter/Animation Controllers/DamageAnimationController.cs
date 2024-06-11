@@ -7,6 +7,7 @@ using Random = UnityEngine.Random;
 
 public class DamageAnimationController : DefenseAnimationController
 {
+    [SerializeField] GameObject normalHitParticles, critHitParticles;
     [SerializeField] string staggerAnimationName = "Stagger Backwards";
 
 
@@ -20,6 +21,7 @@ public class DamageAnimationController : DefenseAnimationController
     /// </summary>
     public override void ReactToBeingHit()
     {
+        PlayDamageParticles(attackType);
         StaggerBackwards(attackType, movementController);
     }
 
@@ -43,5 +45,13 @@ public class DamageAnimationController : DefenseAnimationController
         //Debug.Log($"Damage state finished: {name}");
         movementController.StopCurrentMovement();
         onAnimationFinishedCallback?.Invoke();
+    }
+
+    void PlayDamageParticles(AttackTypes attackType)
+    {
+        if (attackType == AttackTypes.Crit)
+            critHitParticles?.SetActive(true);
+        else
+            normalHitParticles?.SetActive(true);
     }
 }
