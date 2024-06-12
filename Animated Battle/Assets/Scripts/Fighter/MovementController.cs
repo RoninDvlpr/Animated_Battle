@@ -63,30 +63,34 @@ public class MovementController : MonoBehaviour
     /// <param name="onDistanceTraveled">On movement finished callback.</param>
     IEnumerator ForwardMovementCoroutine(float distanceToTravel, float movementSpeed, Action onDistanceTraveled)
     {
-        animator.SetBool("isWalking", true);    //currently only forward motion animation is used
-
-        yield return null; //it takes 1 frame for a tranistion to start
-
-        Debug.Log(animator.GetAnimatorTransitionInfo(0).normalizedTime);
-        yield return null;
-        while (animator.IsInTransition(0))
+        if (distanceToTravel > 0)
         {
-            Debug.Log("Awaiting transition");
-            Debug.Log(animator.GetAnimatorTransitionInfo(0).normalizedTime);
-            yield return null;
+            Vector3 startingPosition = transform.position;
+            animator.SetBool("isWalking", true);    //currently only forward motion animation is used
+
+            yield return null; //it takes 1 frame for a tranistion to start
+
+            // movement during transition to animation
+            float currentSpeed = 0f;
+            while (animator.IsInTransition(0) && CalculateDistance(startingPosition, transform.position) < distanceToTravel)
+            {
+                currentSpeed = CalculateInitialAcceleration(movementSpeed);
+                MoveForward(currentSpeed);
+                yield return null;
+            }
+
+            // movement when fully transitioned to animation
+            while (CalculateDistance(startingPosition, transform.position) < distanceToTravel)
+            {
+                MoveForward(movementSpeed);
+                yield return null;
+            }
+
+            animator.SetBool("isWalking", false);
         }
-        Debug.Log("Finished awaiting transition");
-        Debug.Log(animator.GetAnimatorTransitionInfo(0).normalizedTime);
+        else
+            Debug.LogWarning("You set invalid distance to travel parameter: 'distanceToTravel' should be greater than 0.");
 
-
-        Vector3 startingPosition = transform.position;
-        while (CalculateDistance(startingPosition, transform.position) < distanceToTravel)
-        {
-            MoveForward(movementSpeed);
-            yield return null;
-        }
-
-        animator.SetBool("isWalking", false);
         onDistanceTraveled?.Invoke();
     }
 
@@ -100,19 +104,19 @@ public class MovementController : MonoBehaviour
         if (CalculateDistance(opponent.transform.position, transform.position) > distanceToReach)
         {
             animator.SetBool("isWalking", true);    //currently only forward motion animation is used
-            
-            Debug.Log(animator.GetAnimatorTransitionInfo(0).duration);
-            yield return null;
-            Debug.Log(animator.GetAnimatorTransitionInfo(0).duration);
-            yield return null;  //it takes a few frames for a tranistion to start and it's normalized time to become greater than 0
-            while (animator.IsInTransition(0))
+
+            yield return null; //it takes 1 frame for transition to start
+
+            // movement during transition to animation
+            float currentSpeed = 0f;
+            while (animator.IsInTransition(0) && CalculateDistance(opponent.transform.position, transform.position) > distanceToReach)
             {
-                Debug.Log("Awaiting transition");
-                Debug.Log(animator.GetAnimatorTransitionInfo(0).duration);
+                currentSpeed = CalculateInitialAcceleration(movementSpeed);
+                MoveToOpponent(currentSpeed, opponent);
                 yield return null;
             }
 
-
+            // movement when fully transitioned to animation
             while (CalculateDistance(opponent.transform.position, transform.position) > distanceToReach)
             {
                 MoveToOpponent(movementSpeed, opponent);
@@ -142,6 +146,19 @@ public class MovementController : MonoBehaviour
 
         //currently only forward motion animation is used
         onDistanceCovered?.Invoke();
+    }
+
+    /// <summary>
+    /// Returns gradually incrementing value of the movement speed.
+    /// Used to prevent fighter's "slipping" at the start of the movement.
+    /// </summary>
+    /// <param name="maxSpeed">The standard movement speed that's used when transition to the movement animation was completed</param>
+    /// <returns>A movement speed that correspond's to the current transition's frame</returns>
+    float CalculateInitialAcceleration(float maxSpeed)
+    {
+        if (animator.IsInTransition(0))
+            return Mathf.Lerp(0f, maxSpeed, animator.GetAnimatorTransitionInfo(0).normalizedTime);
+        return maxSpeed;
     }
 
     #endregion
