@@ -1,0 +1,305 @@
+{
+  "steps": [
+    {
+      "hp": {
+        "own": 1000,
+        "opponent": 1000
+      },
+      "actions": {
+        "own": [
+          "crit",
+          "evasion"
+        ],
+        "opponent": [
+          "standard",
+          "evasion"
+        ]
+      }
+    },
+    {
+      "hp": {
+        "own": 1000,
+        "opponent": 1000
+      },
+      "actions": {
+        "own": [
+          "standard",
+          "block"
+        ],
+        "opponent": [
+          "standard",
+          "evasion"
+        ]
+      }
+    },
+    {
+      "hp": {
+        "own": 1000,
+        "opponent": 656
+      },
+      "actions": {
+        "own": [
+          "crit",
+          "standard"
+        ],
+        "opponent": [
+          "crit",
+          "evasion"
+        ]
+      }
+    },
+    {
+      "hp": {
+        "own": 1000,
+        "opponent": 569
+      },
+      "actions": {
+        "own": [
+          "standard",
+          "standard"
+        ],
+        "opponent": [
+          "crit",
+          "evasion"
+        ]
+      }
+    },
+    {
+      "hp": {
+        "own": 1000,
+        "opponent": 569
+      },
+      "actions": {
+        "own": [
+          "crit",
+          "evasion"
+        ],
+        "opponent": [
+          "crit",
+          "evasion"
+        ]
+      }
+    },
+    {
+      "hp": {
+        "own": 1000,
+        "opponent": 569
+      },
+      "actions": {
+        "own": [
+          "standard",
+          "block"
+        ],
+        "opponent": [
+          "standard",
+          "block"
+        ]
+      }
+    },
+    {
+      "hp": {
+        "own": 1000,
+        "opponent": 569
+      },
+      "actions": {
+        "own": [
+          "standard",
+          "block"
+        ],
+        "opponent": [
+          "standard",
+          "block"
+        ]
+      }
+    },
+    {
+      "hp": {
+        "own": 1000,
+        "opponent": 480
+      },
+      "actions": {
+        "own": [
+          "standard",
+          "standard"
+        ],
+        "opponent": [
+          "standard",
+          "block"
+        ]
+      }
+    },
+    {
+      "hp": {
+        "own": 1000,
+        "opponent": 480
+      },
+      "actions": {
+        "own": [
+          "standard",
+          "evasion"
+        ],
+        "opponent": [
+          "standard",
+          "standard"
+        ]
+      }
+    },
+    {
+      "hp": {
+        "own": 1000,
+        "opponent": 480
+      },
+      "actions": {
+        "own": [
+          "crit",
+          "evasion"
+        ],
+        "opponent": [
+          "standard",
+          "evasion"
+        ]
+      }
+    },
+    {
+      "hp": {
+        "own": 1000,
+        "opponent": 480
+      },
+      "actions": {
+        "own": [
+          "standard",
+          "evasion"
+        ],
+        "opponent": [
+          "crit",
+          "evasion"
+        ]
+      }
+    },
+    {
+      "hp": {
+        "own": 1000,
+        "opponent": 380
+      },
+      "actions": {
+        "own": [
+          "standard",
+          "standard"
+        ],
+        "opponent": [
+          "standard",
+          "evasion"
+        ]
+      }
+    },
+    {
+      "hp": {
+        "own": 1000,
+        "opponent": 278
+      },
+      "actions": {
+        "own": [
+          "standard",
+          "standard"
+        ],
+        "opponent": [
+          "standard",
+          "evasion"
+        ]
+      }
+    },
+    {
+      "hp": {
+        "own": 1000,
+        "opponent": 278
+      },
+      "actions": {
+        "own": [
+          "crit",
+          "evasion"
+        ],
+        "opponent": [
+          "crit",
+          "evasion"
+        ]
+      }
+    },
+    {
+      "hp": {
+        "own": 784,
+        "opponent": 278
+      },
+      "actions": {
+        "own": [
+          "crit",
+          "evasion"
+        ],
+        "opponent": [
+          "crit",
+          "standard"
+        ]
+      }
+    },
+    {
+      "hp": {
+        "own": 784,
+        "opponent": 114
+      },
+      "actions": {
+        "own": [
+          "crit",
+          "block"
+        ],
+        "opponent": [
+          "crit",
+          "block"
+        ]
+      }
+    },
+    {
+      "hp": {
+        "own": 784,
+        "opponent": 114
+      },
+      "actions": {
+        "own": [
+          "standard",
+          "evasion"
+        ],
+        "opponent": [
+          "standard",
+          "evasion"
+        ]
+      }
+    },
+    {
+      "hp": {
+        "own": 784,
+        "opponent": 114
+      },
+      "actions": {
+        "own": [
+          "crit",
+          "evasion"
+        ],
+        "opponent": [
+          "crit",
+          "block"
+        ]
+      }
+    },
+    {
+      "hp": {
+        "own": 784,
+        "opponent": 0
+      },
+      "actions": {
+        "own": [
+          "crit",
+          "block"
+        ],
+        "opponent": []
+      }
+    }
+  ]
+}
