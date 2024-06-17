@@ -2547,7 +2547,7 @@ GameObject:
   - component: {fileID: 1191942505}
   - component: {fileID: 1191942507}
   m_Layer: 0
-  m_Name: Walk Test Camera
+  m_Name: Walking Test Camera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3208,7 +3208,7 @@ GameObject:
   - component: {fileID: 1783848693}
   - component: {fileID: 1783848692}
   m_Layer: 0
-  m_Name: Fight Controller
+  m_Name: Test Fight Controller
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3228,7 +3228,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerFighter: {fileID: 150530725}
   opponentFighter: {fileID: 2021382632}
+  responseParser: {fileID: 807892963}
   playRandomFight: 1
+  playFightFromExampleJSON: 0
   takeTurnsDuringRandomFight: 0
 --- !u!4 &1783848693
 Transform:
@@ -3627,6 +3629,7 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 1783848693}
+  - {fileID: 807892964}
   - {fileID: 963194228}
   - {fileID: 705507995}
   - {fileID: 915379282}
@@ -3635,4 +3638,3 @@ SceneRoots:
   - {fileID: 1349987065}
   - {fileID: 1191942504}
   - {fileID: 585078412}
-  - {fileID: 807892964}

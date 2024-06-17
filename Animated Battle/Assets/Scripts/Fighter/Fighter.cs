@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
+using Unity.VisualScripting;
 using UnityEngine;
 
 using Random = UnityEngine.Random;
@@ -9,7 +10,7 @@ using Random = UnityEngine.Random;
 
 public class Fighter : MonoBehaviour
 {
-    //refs
+    [InspectorLabel("Dependencies")]
     [SerializeField] MovementController movementController;
     [SerializeField] AttackAnimationController attackAnimController;
     [SerializeField] BlockAnimationController blockAnimController;
@@ -17,14 +18,15 @@ public class Fighter : MonoBehaviour
     [SerializeField] DamageAnimationController damageAnimController;
     [SerializeField] Weapon weapon;
 
-    //settings
+    [InspectorLabel("Settings")]
     float AttackDistance { get; set; } = 1.25f;
 
-    //state
+    // State
     public bool IsBusy { get; private set; } = false;
     public event Action onBecomingFree;
     DefenseAnimationController currentDefenseAnimationController;
     Action onAttackFinished;
+
 
 
     private void Awake()
@@ -56,6 +58,22 @@ public class Fighter : MonoBehaviour
         );
     }
 
+    public void SetNextDefense(DefenseTypes nextDefense)
+    {
+        switch (nextDefense)
+        {
+            case DefenseTypes.Block:
+                BlockNextAttack();
+                break;
+            case DefenseTypes.Evasion:
+                DodgeNextAttack();
+                break;
+            default:
+                GetHitByNextAttack();
+                break;
+        }
+    }
+    
     public void BlockNextAttack()
     {
         currentDefenseAnimationController = blockAnimController;
@@ -64,6 +82,11 @@ public class Fighter : MonoBehaviour
     public void DodgeNextAttack()
     {
         currentDefenseAnimationController = dodgeAnimController;
+    }
+
+    public void GetHitByNextAttack()
+    {
+        currentDefenseAnimationController = damageAnimController;
     }
 
     #endregion
@@ -111,7 +134,7 @@ public class Fighter : MonoBehaviour
         public void OnHit(AttackTypes attackType)
         {
             currentDefenseAnimationController.ReactToBeingHit();
-            currentDefenseAnimationController = damageAnimController;
+            GetHitByNextAttack();
         }
         #endregion
 

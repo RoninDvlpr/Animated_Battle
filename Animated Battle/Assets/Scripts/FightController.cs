@@ -6,116 +6,110 @@ using UnityEngine;
 
 using Random = UnityEngine.Random;
 
-
 public class FightController : MonoBehaviour
 {
-    [SerializeField] Fighter playerFighter, opponentFighter;
-    [InspectorLabel("Random fight")] 
-    [SerializeField] bool playRandomFight, takeTurnsDuringRandomFight;
+    [InspectorLabel("Dependencies")]
+    [SerializeField] protected Fighter playerFighter, opponentFighter;
+    [SerializeField] ResponseParser responseParser;
 
-    Fighter randomFightAttacker;
+    [InspectorLabel("Fight settings")]
+    [SerializeField] protected bool playRandomFight = true,
+        playFightFromExampleJSON = false,
+        takeTurnsDuringRandomFight = false;
+
+    // Fight State
+    List<FightTurn> turnsList = new List<FightTurn>();
+    int currentTurnIndex;
+    bool FightersAreFree
+    {
+        get
+        {
+            return !playerFighter.IsBusy && !opponentFighter.IsBusy;
+        }
+    }
+
 
 
     void Start()
     {
-        //Time.timeScale = 0.25f;
-
-        //playerFighter.MoveForward(100000f, null); //walk test
-        CloseIn();
-        //AttacksDemo();
-        if (playRandomFight)
-            StartRandomFight();
+        StartFight();
     }
 
-    void CloseIn()
+    protected void StartFight()
+    {
+        if (playFightFromExampleJSON)
+            turnsList = responseParser.ExampleFightData.GetFightTurns();
+        currentTurnIndex = 0;
+
+        CloseIn();
+        StartNextTurn();
+    }
+
+    void StartNextTurn()
+    {
+        if (currentTurnIndex >= turnsList.Count)
+        {
+            if (playRandomFight)
+                AddRandomTurn();
+            else
+                return;
+        }
+
+
+        if (!FightersAreFree)
+        {
+            StartCoroutine(AwaitForFightersToFreeUp(StartNextTurn));
+            return;
+        }
+
+        PlayTurn(turnsList[currentTurnIndex], StartNextTurn);
+        currentTurnIndex++;
+    }
+
+    IEnumerator AwaitForFightersToFreeUp(Action onFightersFreedUp)
+    {
+        while (!FightersAreFree)
+            yield return null;
+        onFightersFreedUp?.Invoke();
+    }
+
+    void PlayTurn(FightTurn turn, Action onTurnFinished)
+    {
+        Fighter attacker, defender;
+        if (turn.attacker == Fighters.Player)
+        {
+            attacker = playerFighter;
+            defender = opponentFighter;
+        }
+        else
+        {
+            attacker = opponentFighter;
+            defender = playerFighter;
+        }
+
+        defender.SetNextDefense(turn.defenseType);
+        attacker.AttackOpponent(new AttackContext(defender, turn.attackType, onTurnFinished));
+    }
+
+    void AddRandomTurn()
+    {
+        Fighters attacker = GetAttackerForRandomTurn();
+        turnsList.Add(FightTurn.GenerateRandomFightTurn(attacker));
+    }
+
+    Fighters GetAttackerForRandomTurn()
+    {
+        if (!takeTurnsDuringRandomFight || turnsList.Count == 0)
+            return (Fighters) Random.Range(0, 2);
+
+        Fighters lastAttacker = turnsList[turnsList.Count - 1].attacker; // the fighter who performed attack on previous turn
+        Fighters nextAttacker = (Fighters) (((int)lastAttacker + 1) % 2); // the next attacker is another fighter from the player-opponent pair
+        return nextAttacker;
+    }
+
+    protected void CloseIn()
     {
         playerFighter.CloseInOnOpponent(opponentFighter);
         opponentFighter.CloseInOnOpponent(playerFighter);
-    }
-
-    #region Demonstration
-
-    void AttacksDemo()
-    {
-        //response to an attack should be set before calling the attack method -
-        //otherwise defender will react to the attack start as if he has no defense task
-        //opponentFighter.BlockNextAttack();
-        //opponentFighter.DodgeNextAttack();
-
-        AttackContext randomAttackContext = GenerateRandomAttackContext(opponentFighter, AttacksDemo);
-        playerFighter.AttackOpponent(randomAttackContext);
-    }
-
-    #endregion
-
-    void StartRandomFight()
-    {
-        if (takeTurnsDuringRandomFight)
-            randomFightAttacker = playerFighter;
-        ContinueRandomFight();
-    }
-
-    void ContinueRandomFight()
-    {
-        if (takeTurnsDuringRandomFight)
-            randomFightAttacker = GetAnotherFighter(randomFightAttacker);
-        else
-            randomFightAttacker = GetRandomFighter();
-        Fighter defender = GetAnotherFighter(randomFightAttacker);
-
-        StartCoroutine(PlayRandomFightRound(randomFightAttacker, defender, ContinueRandomFight));
-    }
-
-    IEnumerator PlayRandomFightRound(Fighter attacker, Fighter defender, Action onRoundFinished)
-    {
-        int randomDefenseIndex = Random.Range(0, 3);
-        switch (randomDefenseIndex)
-        {
-            case 1:
-                defender.BlockNextAttack();
-                break;
-            case 2:
-                defender.DodgeNextAttack();
-                break;
-        }
-
-        while (attacker.IsBusy || defender.IsBusy)
-            yield return null;
-
-        AttackContext randomAttackContext = GenerateRandomAttackContext(defender, onRoundFinished);
-        attacker.AttackOpponent(randomAttackContext);
-    }
-
-    Fighter GetAnotherFighter(Fighter fighter)
-    {
-        if (fighter == opponentFighter)
-            return playerFighter;
-        else if (fighter == playerFighter)
-            return opponentFighter;
-        else
-        {
-            Debug.LogError("Such fighter doesn't exist " + fighter);
-            return playerFighter;
-        }
-    }
-
-    Fighter GetRandomFighter()
-    {
-        int randomIndex = Random.Range(0, 2);
-
-        if (randomIndex == 0)
-            return playerFighter;
-        else
-            return opponentFighter;
-    }
-
-    AttackContext GenerateRandomAttackContext(Fighter attackTarget, Action onAttackFinishedCallback)
-    {
-        AttackTypes randomAttackType = (AttackTypes) Random.Range(0, 2);
-
-        return new AttackContext(
-            attackTarget,
-            randomAttackType,
-            onAttackFinishedCallback);
     }
 }

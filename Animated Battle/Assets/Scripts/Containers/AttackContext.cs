@@ -1,6 +1,6 @@
 using System;
 
-public struct AttackContext
+public class AttackContext
 {
     public readonly Fighter attackTarget;
     public readonly AttackTypes attackType;

@@ -2096,6 +2096,51 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 150530723}
   opponent: {fileID: 2021382630}
+--- !u!1 &994164241
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 994164243}
+  - component: {fileID: 994164242}
+  m_Layer: 0
+  m_Name: Response Parser
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &994164242
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 994164241}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 210ca1ac601e2054487260aca3d5b24d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  exampleServerResponse: {fileID: 4900000, guid: 5cee9757fe1613a40983ccc7bad7ad61, type: 3}
+--- !u!4 &994164243
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 994164241}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1129314828
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2647,7 +2692,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1783848693}
-  - component: {fileID: 1783848692}
+  - component: {fileID: 1783848694}
   m_Layer: 0
   m_Name: Fight Controller
   m_TagString: Untagged
@@ -2655,22 +2700,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1783848692
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1783848691}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 58815ccb01f63934fa4133692fa92de0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerFighter: {fileID: 150530725}
-  opponentFighter: {fileID: 2021382632}
-  playRandomFight: 1
-  takeTurnsDuringRandomFight: 0
 --- !u!4 &1783848693
 Transform:
   m_ObjectHideFlags: 0
@@ -2686,6 +2715,23 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1783848694
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1783848691}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 743d37ba614a4d643a67e81687ee1777, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerFighter: {fileID: 150530725}
+  opponentFighter: {fileID: 2021382632}
+  responseParser: {fileID: 994164242}
+  playRandomFight: 1
+  playFightFromExampleJSON: 0
 --- !u!1 &2021382628 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 33723962609650948, guid: 63a1191c760b32f48a6dda04f7b9e290, type: 3}
@@ -2921,6 +2967,7 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 1783848693}
+  - {fileID: 994164243}
   - {fileID: 963194228}
   - {fileID: 705507995}
   - {fileID: 915379282}

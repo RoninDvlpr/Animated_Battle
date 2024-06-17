@@ -5,18 +5,31 @@ using UnityEngine;
 public class ResponseParser : MonoBehaviour
 {
     [SerializeField] TextAsset exampleServerResponse;
-
-    void Start()
+    FightData exampleFightData;
+    public FightData ExampleFightData
     {
-        PrintExampleFightData();
+        get
+        {
+            if (exampleFightData == null)
+                exampleFightData = ParseExampleFightData();
+            return exampleFightData;
+        }
+    }
+
+
+    void PrintExampleTurns()
+    {
+        List<FightTurn> turns = ExampleFightData.GetFightTurns();
+        for (int i = 0; i < turns.Count; i++)
+            turns[i].PrintToConsole();
     }
 
     void PrintExampleFightData()
     {
-        GetExampleFightData().PrintToConsole();
+        ExampleFightData.PrintToConsole();
     }
 
-    public FightData GetExampleFightData()
+    FightData ParseExampleFightData()
     {
         return FightData.CreateFromJSON(exampleServerResponse.text);
     }
